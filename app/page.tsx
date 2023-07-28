@@ -1,24 +1,51 @@
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "./page.module.css";
+import { Cuisine, Location, PRICE, PrismaClient } from "@prisma/client";
+import Link from "next/link";
+import MainPageHeader from "../app/components/MainPageHeader/MainPageHeader";
+import Cards from "./components/Cards/Cards";
+import SearchBar from "./components/SearchBar/SearchBar";
 
-import Navbar from "../components/Navbar/Navbar";
-import MainPageHeader from "../components/MainPageHeader/MainPageHeader";
+export interface RestaurantProps {
+  id: number;
+  name: string;
+  main_image: string;
+  price: PRICE;
+  cuisine: Cuisine;
+  location: Location;
+  slug:string
+}
 
-const inter = Inter({ subsets: ["latin"] });
+const prisma = new PrismaClient();
 
-export default function Home() {
+const fetchRestaurants = async (): Promise<RestaurantProps[]> => {
+  const restaurants = await prisma.restaurant.findMany({
+    select: {
+      id: true,
+      name: true,
+      main_image: true,
+      price: true,
+      cuisine: true,
+      location: true,
+      slug:true
+    },
+  });
+  console.log(restaurants);
+  return restaurants;
+};
+export default async function Home() {
+  const restaurants = await fetchRestaurants();
   return (
-    <main className="bg-gray-100 min-h-screen w-screen">
-      <main className="max-w-screen-2xl m-auto bg-white">
-        {/* Navbar */}
-        <Navbar />
-        {/* Navbar */}
-
-        {/* Header */}
-       <MainPageHeader />
-        {/* Header */}
-      </main>
-    </main>
+    <div className="h-64 bg-gradient-to-r from-[#0f1f47] to-[#5f6984] p-2">
+      <div className="text-center mt-10">
+        <h1 className="text-white text-5xl font-bold mb-2">
+          Find your table for any occasion
+        </h1>
+      </div>
+      <SearchBar />
+      <div className="py-3 px-3 mt-10 flex flex-wrap">
+      {restaurants.map((restaurant) => (
+        <Cards restaurant={restaurant} key={restaurant.id} />
+      ))}
+      </div>
+    </div>
   );
 }
