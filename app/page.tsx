@@ -11,8 +11,8 @@ export interface RestaurantProps {
   price: PRICE;
   cuisine: Cuisine;
   location: Location;
-  slug:string,
-  reviews: Review[]
+  slug: string;
+  reviews: Review[];
 }
 
 const prisma = new PrismaClient();
@@ -26,8 +26,8 @@ const fetchRestaurants = async (): Promise<RestaurantProps[]> => {
       price: true,
       cuisine: true,
       location: true,
-      slug:true,
-      reviews: true
+      slug: true,
+      reviews: true,
     },
   });
   console.log(restaurants);
@@ -44,9 +44,9 @@ export default async function Home() {
       </div>
       <SearchBar />
       <div className="py-3 px-3 mt-10 flex flex-wrap">
-      {restaurants.map((restaurant) => (
-        <Cards restaurant={restaurant} key={restaurant.id} />
-      ))}
+        {restaurants.map((restaurant) => (
+          <Cards restaurant={restaurant} key={restaurant.id} />
+        ))}
       </div>
     </div>
   );
