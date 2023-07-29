@@ -1,31 +1,24 @@
+import { Review } from "@prisma/client";
 import ReviewCard from "../../../components/ReviewCard/ReviewCard";
 
-const Reviews = (props:{reviews:any}) => {
+const Reviews = ({ reviews }: { reviews: Review[] }) => {
   return (
     <div>
       <h1 className="font-bold text-3xl mt-10 mb-7 pb-5 border-b">
-        What people are saying
+        What {reviews.length} {reviews.length > 1 ? "people" : "person"} are
+        saying
       </h1>
 
-      {/* Review Cards */}
-      {/* Review 1 */}
-      <ReviewCard
-        userInitials="MJ"
-        username="Micheal Jorden"
-        date="25st Dec 2022"
-        rating="*****"
-        review={props.reviews[0]["review"]}
-      />
-
-      {/* Review 2 */}
-      <ReviewCard
-        userInitials="AK"
-        username="Anuj Kale"
-        date="22st Nov 2021"
-        review={props.reviews[1]["review"]}
-        rating="****"
-      />
-      {/* Review Cards */}
+      {reviews &&
+        reviews.map((review) => (
+          <ReviewCard
+            userInitials={review.first_name[0] + review.last_name[0]}
+            username={review.first_name + " " + review.last_name}
+            review={review.text}
+            rating={review.rating}
+            key={review.id}
+          />
+        ))}
     </div>
   );
 };

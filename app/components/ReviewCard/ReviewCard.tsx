@@ -1,24 +1,26 @@
+import Stars from "../Stars/Stars";
+
 interface ReviewCardProp {
     userInitials: string;
     username: string;
-    date: string;
     review: string;
-    rating: string
+    rating: number
   }
-const ReviewCard = ({userInitials, username, date, review, rating}: ReviewCardProp) => {
+const ReviewCard = ({userInitials, username, review, rating}: ReviewCardProp) => {
   return (
     <div className="border-b pb-7 mb-7">
       <div className="flex">
         <div className="w-1/6 flex flex-col items-center">
           <div className="rounded-full bg-blue-500 w-16 h-16 flex items-center justify-center">
-            <h2 className="text-white text-2xl ">{userInitials}</h2>
+            <h2 className="text-white text-2xl uppercase">{userInitials}</h2>
           </div>
           <p className="text-center">{username}</p>
         </div>
         <div className="ml-8 w-5/6">
           <div className="flex items-center">
-            <div className="flex mr-5">{rating}</div>
-            <p className="text-reg font-bold">{date}</p>
+            <div className="flex mr-5">
+              <Stars rating={rating} />
+            </div>
           </div>
 
           <div className="mt-5">
