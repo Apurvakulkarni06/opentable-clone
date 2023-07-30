@@ -66,10 +66,10 @@ model Cuisine{
 
 model User{
   id Int @id @default(autoincrement())
-  first_name String @unique
-  last_name String  @unique
+  first_name String 
+  last_name String  
   city String
-  email String
+  email String @unique
   phone String
   password String
   reviews Review[]
