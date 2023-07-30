@@ -1,6 +1,4 @@
 import { Cuisine, Location, PRICE, PrismaClient, Review } from "@prisma/client";
-import Link from "next/link";
-import MainPageHeader from "../app/components/MainPageHeader/MainPageHeader";
 import Cards from "./components/Cards/Cards";
 import SearchBar from "./components/SearchBar/SearchBar";
 
