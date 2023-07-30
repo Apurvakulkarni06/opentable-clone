@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
 
 const SearchBar = () => {
   const [location, setLocation] = useState('')
@@ -18,7 +17,6 @@ const SearchBar = () => {
   return (
     <div className="text-left py-3 m-auto flex justify-center">
       <span>
-        <AiOutlineSearch />
         <input
           className="rounded text-lg mr-3 w-[450px] p-2 "
           type="text"
